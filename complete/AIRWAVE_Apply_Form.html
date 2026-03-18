@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIRWAVE PODCAST — Apply Now</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #060D1A; --navy2: #0D1B2E; --gold: #D4AF37;
+  --cyan: #00C9E0; --white: #F5F0E8; --mid: #7A8CA8;
+  --border: rgba(212,175,55,0.25); --input-bg: rgba(255,255,255,0.05);
+  --green: #25D366; --red: #FF2D55;
+}
+html, body { width:100%; min-height:100%; background:var(--navy); color:var(--white); font-family:'Barlow',sans-serif; -webkit-text-size-adjust:100%; }
+
+/* ── PAGES ── */
+.page { display:none; }
+.page.active { display:block; }
+
+/* ── HEADER ── */
+.header {
+  background:linear-gradient(180deg,#0A1628 0%,var(--navy) 100%);
+  border-bottom:1px solid var(--border);
+  padding:5vw 5vw 4vw; text-align:center; position:relative; overflow:hidden;
+}
+.header::before {
+  content:''; position:absolute; inset:0;
+  background-image:linear-gradient(rgba(212,175,55,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,0.04) 1px,transparent 1px);
+  background-size:8vw 8vw;
+}
+.live-bar {
+  display:inline-flex; align-items:center; gap:2vw;
+  background:rgba(0,201,224,0.1); border:1px solid rgba(0,201,224,0.3);
+  padding:1.2vw 4vw; border-radius:20px; margin-bottom:3vw; position:relative; z-index:1;
+}
+.live-dot { width:2vw;height:2vw;border-radius:50%;background:var(--cyan);box-shadow:0 0 4px var(--cyan);animation:blink 1.5s infinite;flex-shrink:0; }
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+.live-text { font-family:'Barlow Condensed',sans-serif;font-size:3vw;font-weight:700;letter-spacing:1.5vw;color:var(--cyan);text-transform:uppercase; }
+.brand-name { font-family:'Bebas Neue',sans-serif;font-size:13vw;line-height:0.9;color:var(--gold);letter-spacing:1vw;position:relative;z-index:1; }
+.brand-sub { font-family:'Bebas Neue',sans-serif;font-size:6vw;color:var(--white);letter-spacing:2vw;position:relative;z-index:1;margin-bottom:2vw; }
+.header-tagline { font-family:'Barlow Condensed',sans-serif;font-size:3.5vw;font-weight:300;letter-spacing:1vw;color:var(--mid);text-transform:uppercase;position:relative;z-index:1; }
+.hz-pill { display:inline-block;background:var(--gold);color:var(--navy);font-family:'Bebas Neue',sans-serif;font-size:3.5vw;letter-spacing:1vw;padding:1vw 4vw;margin-top:3vw;clip-path:polygon(2vw 0,100% 0,calc(100% - 2vw) 100%,0 100%);position:relative;z-index:1; }
+
+/* ── FORM ── */
+.form-wrap { padding:5vw; }
+.section-title { font-family:'Bebas Neue',sans-serif;font-size:5.5vw;color:var(--gold);letter-spacing:1vw;margin-bottom:1vw; }
+.section-sub { font-family:'Barlow Condensed',sans-serif;font-size:3.2vw;font-weight:300;color:var(--mid);letter-spacing:0.3vw;margin-bottom:4vw;line-height:1.5; }
+.field { margin-bottom:4vw; }
+.field label { display:block;font-family:'Barlow Condensed',sans-serif;font-size:3.2vw;font-weight:700;letter-spacing:0.8vw;color:var(--cyan);text-transform:uppercase;margin-bottom:1.5vw; }
+.field input,.field select,.field textarea {
+  width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:2vw;
+  padding:3.5vw 4vw;color:var(--white);font-family:'Barlow',sans-serif;font-size:4vw;font-weight:300;
+  outline:none;-webkit-appearance:none;transition:border-color 0.2s,background 0.2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus { border-color:var(--gold);background:rgba(212,175,55,0.06); }
+.field input::placeholder,.field textarea::placeholder { color:var(--mid);opacity:0.6; }
+.field select option { background:var(--navy2);color:var(--white); }
+.field textarea { resize:none;height:24vw;line-height:1.6; }
+.cats-grid { display:grid;grid-template-columns:1fr 1fr;gap:2.5vw; }
+.cat-check { display:flex;align-items:center;gap:2.5vw;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:2vw;padding:2.5vw 3vw;cursor:pointer;transition:border-color 0.2s,background 0.2s; }
+.cat-check:has(input:checked) { border-color:var(--gold);background:rgba(212,175,55,0.1); }
+.cat-check input[type="checkbox"] { width:4.5vw;height:4.5vw;accent-color:var(--gold);flex-shrink:0; }
+.cat-check span { font-family:'Barlow Condensed',sans-serif;font-size:3.2vw;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:0.2vw; }
+.divider { display:flex;align-items:center;gap:3vw;margin:6vw 0; }
+.divider .l { flex:1;height:1px;background:var(--border); }
+.divider .d { width:2vw;height:2vw;border-radius:50%;background:var(--gold);flex-shrink:0; }
+
+/* ── VIDEO SECTION ── */
+.video-section { background:rgba(0,201,224,0.04);border:1px solid rgba(0,201,224,0.25);border-radius:3vw;padding:5vw;margin-bottom:5vw; }
+.video-title { font-family:'Bebas Neue',sans-serif;font-size:6vw;color:var(--cyan);letter-spacing:1vw;margin-bottom:1vw; }
+.video-hint { font-family:'Barlow Condensed',sans-serif;font-size:3.2vw;font-weight:300;color:var(--mid);line-height:1.6;margin-bottom:4vw; }
+.video-hint strong { color:var(--gold);font-weight:700; }
+#videoPreview,#recordedPreview { width:100%;border-radius:2vw;background:#000;display:none;margin-bottom:3vw;max-height:50vw;object-fit:cover; }
+.video-buttons { display:flex;flex-direction:column;gap:2.5vw; }
+.btn-record { width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:2vw;padding:4vw;font-family:'Bebas Neue',sans-serif;font-size:5vw;letter-spacing:1.5vw;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:2vw; }
+.btn-stop { width:100%;background:var(--red);color:#fff;border:none;border-radius:2vw;padding:4vw;font-family:'Bebas Neue',sans-serif;font-size:5vw;letter-spacing:1.5vw;cursor:pointer;display:none;align-items:center;justify-content:center;gap:2vw; }
+.btn-upload { width:100%;background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:2vw;padding:4vw;font-family:'Bebas Neue',sans-serif;font-size:5vw;letter-spacing:1.5vw;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:2vw; }
+.or-divider { text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:3vw;color:var(--mid);letter-spacing:1vw; }
+.rec-timer { display:none;align-items:center;justify-content:center;gap:2vw;padding:2vw;font-family:'Bebas Neue',sans-serif;font-size:5vw;color:var(--red);letter-spacing:1vw;animation:pulse 1s ease infinite; }
+.rec-timer.show { display:flex; }
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.rec-dot { width:2.5vw;height:2.5vw;border-radius:50%;background:var(--red);flex-shrink:0; }
+.video-success { display:none;align-items:center;gap:3vw;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.4);border-radius:2vw;padding:3vw 4vw;margin-top:2vw; }
+.video-success.show { display:flex; }
+.video-success span { font-family:'Barlow Condensed',sans-serif;font-size:3.5vw;font-weight:700;color:var(--green);letter-spacing:0.3vw; }
+
+/* ── TIPS ── */
+.tips-box { background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.2);border-radius:2vw;padding:4vw;margin-bottom:5vw; }
+.tips-title { font-family:'Bebas Neue',sans-serif;font-size:4.5vw;color:var(--gold);letter-spacing:0.8vw;margin-bottom:2.5vw; }
+.tip { display:flex;align-items:flex-start;gap:3vw;margin-bottom:2.5vw; }
+.tip-num { font-family:'Bebas Neue',sans-serif;font-size:4.5vw;color:var(--gold);opacity:0.5;flex-shrink:0;line-height:1.2; }
+.tip-text { font-family:'Barlow Condensed',sans-serif;font-size:3.3vw;color:var(--white);line-height:1.5; }
+.tip-text strong { color:var(--gold);font-weight:700; }
+.submit-btn { width:100%;background:linear-gradient(135deg,var(--gold),#8B6914);color:var(--navy);border:none;border-radius:2vw;padding:5vw;font-family:'Bebas Neue',sans-serif;font-size:6.5vw;letter-spacing:2vw;cursor:pointer;margin-bottom:4vw; }
+
+/* ── SUCCESS ── */
+.success-screen { display:none;position:fixed;inset:0;background:var(--navy);z-index:100;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8vw; }
+.success-screen.show { display:flex; }
+.success-icon { font-size:18vw;margin-bottom:5vw;animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275); }
+@keyframes popIn{0%{transform:scale(0)}100%{transform:scale(1)}}
+.success-title { font-family:'Bebas Neue',sans-serif;font-size:12vw;color:var(--gold);letter-spacing:1vw;line-height:0.9;margin-bottom:3vw; }
+.success-sub { font-family:'Barlow Condensed',sans-serif;font-size:4vw;font-weight:300;color:var(--mid);letter-spacing:0.3vw;line-height:1.7;margin-bottom:6vw; }
+.success-contact { background:rgba(212,175,55,0.1);border:1px solid var(--border);border-radius:3vw;padding:5vw;width:100%;margin-bottom:5vw; }
+.sc-label { font-family:'Barlow Condensed',sans-serif;font-size:2.8vw;font-weight:700;letter-spacing:1.5vw;color:var(--cyan);text-transform:uppercase;margin-bottom:3vw; }
+.sc-num { font-family:'Bebas Neue',sans-serif;font-size:6vw;color:var(--gold);letter-spacing:0.5vw;display:block;margin-bottom:1vw; }
+.success-brand { font-family:'Bebas Neue',sans-serif;font-size:4.5vw;letter-spacing:2vw;color:var(--gold);opacity:0.6; }
+
+/* ── ADMIN DASHBOARD ── */
+.admin-page { background:var(--navy);min-height:100vh; }
+.admin-header {
+  background:linear-gradient(135deg,#0A1628,#0D1B2E);
+  border-bottom:2px solid var(--gold);
+  padding:4vw 5vw;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.admin-title { font-family:'Bebas Neue',sans-serif;font-size:6vw;color:var(--gold);letter-spacing:1vw; }
+.admin-subtitle { font-family:'Barlow Condensed',sans-serif;font-size:2.8vw;color:var(--mid);letter-spacing:0.5vw;text-transform:uppercase; }
+.admin-back { font-family:'Barlow Condensed',sans-serif;font-size:3vw;font-weight:700;color:var(--cyan);letter-spacing:0.5vw;background:rgba(0,201,224,0.1);border:1px solid rgba(0,201,224,0.3);padding:1.5vw 3vw;border-radius:1.5vw;cursor:pointer;text-decoration:none; }
+
+/* Stats row */
+.stats-row { display:grid;grid-template-columns:repeat(3,1fr);gap:2.5vw;padding:4vw 4vw 0; }
+.stat-card { background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:2.5vw;padding:3.5vw 3vw;text-align:center; }
+.stat-num { font-family:'Bebas Neue',sans-serif;font-size:10vw;color:var(--gold);line-height:1;display:block; }
+.stat-label { font-family:'Barlow Condensed',sans-serif;font-size:2.4vw;font-weight:700;letter-spacing:0.8vw;color:var(--mid);text-transform:uppercase;margin-top:1vw;line-height:1.4; }
+
+/* Filter bar */
+.filter-bar { padding:3vw 4vw;display:flex;gap:2vw;overflow-x:auto; }
+.filter-btn { font-family:'Barlow Condensed',sans-serif;font-size:2.8vw;font-weight:700;letter-spacing:0.5vw;text-transform:uppercase;padding:1.5vw 3.5vw;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--mid);white-space:nowrap;cursor:pointer;flex-shrink:0; }
+.filter-btn.active { background:var(--gold);color:var(--navy);border-color:var(--gold); }
+
+/* Search */
+.search-wrap { padding:0 4vw 3vw; }
+.search-wrap input { width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:2vw;padding:3vw 4vw;color:var(--white);font-family:'Barlow',sans-serif;font-size:3.5vw;outline:none; }
+.search-wrap input::placeholder { color:var(--mid);opacity:0.6; }
+
+/* Applicant cards */
+.apps-list { padding:0 4vw 8vw; }
+.app-card {
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:3vw;
+  padding:4vw;
+  margin-bottom:3vw;
+  cursor:pointer;
+  transition:border-color 0.2s,background 0.2s;
+}
+.app-card:active { border-color:var(--gold);background:rgba(212,175,55,0.05); }
+.app-card-top { display:flex;align-items:center;gap:3vw;margin-bottom:2.5vw; }
+.app-avatar {
+  width:12vw;height:12vw;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#8B6914);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:5vw;color:var(--navy);flex-shrink:0;
+}
+.app-info { flex:1; }
+.app-name { font-family:'Bebas Neue',sans-serif;font-size:5vw;color:var(--white);letter-spacing:0.3vw;line-height:1; }
+.app-phone { font-family:'Barlow Condensed',sans-serif;font-size:3vw;color:var(--cyan);letter-spacing:0.3vw;margin-top:0.8vw; }
+.app-date { font-family:'Barlow Condensed',sans-serif;font-size:2.5vw;color:var(--mid);letter-spacing:0.2vw;margin-top:0.5vw; }
+.status-badge { font-family:'Barlow Condensed',sans-serif;font-size:2.5vw;font-weight:700;letter-spacing:0.5vw;padding:1vw 2.5vw;border-radius:1vw;flex-shrink:0;align-self:flex-start; }
+.status-new { background:rgba(0,201,224,0.15);color:var(--cyan);border:1px solid rgba(0,201,224,0.3); }
+.status-reviewed { background:rgba(212,175,55,0.15);color:var(--gold);border:1px solid rgba(212,175,55,0.3); }
+.status-shortlisted { background:rgba(37,211,102,0.15);color:var(--green);border:1px solid rgba(37,211,102,0.3); }
+.status-declined { background:rgba(255,45,85,0.15);color:var(--red);border:1px solid rgba(255,45,85,0.3); }
+.app-pills { display:flex;flex-wrap:wrap;gap:1.5vw; }
+.app-pill { font-family:'Barlow Condensed',sans-serif;font-size:2.5vw;font-weight:700;letter-spacing:0.2vw;padding:0.8vw 2vw;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);color:var(--gold);text-transform:uppercase; }
+.app-show { font-family:'Barlow Condensed',sans-serif;font-size:3vw;color:var(--white);font-weight:400;margin-top:2vw;opacity:0.75; }
+
+/* Detail panel */
+.detail-panel { display:none;position:fixed;inset:0;background:var(--navy);z-index:200;overflow-y:auto; }
+.detail-panel.show { display:block; }
+.detail-header { background:var(--navy2);border-bottom:1px solid var(--border);padding:4vw 5vw;display:flex;align-items:center;gap:3vw;position:sticky;top:0;z-index:10; }
+.detail-close { font-family:'Bebas Neue',sans-serif;font-size:4vw;color:var(--gold);background:rgba(212,175,55,0.1);border:1px solid var(--border);padding:1.5vw 3vw;border-radius:1.5vw;cursor:pointer;flex-shrink:0; }
+.detail-name { font-family:'Bebas Neue',sans-serif;font-size:6vw;color:var(--white);letter-spacing:0.5vw;line-height:1; }
+.detail-body { padding:5vw; }
+.detail-row { display:flex;justify-content:space-between;align-items:flex-start;padding:2.5vw 0;border-bottom:1px solid rgba(255,255,255,0.06); }
+.detail-key { font-family:'Barlow Condensed',sans-serif;font-size:2.8vw;font-weight:700;letter-spacing:0.5vw;color:var(--cyan);text-transform:uppercase;flex-shrink:0;width:30%; }
+.detail-val { font-family:'Barlow Condensed',sans-serif;font-size:3.2vw;color:var(--white);text-align:right;flex:1; }
+.detail-desc { background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:2vw;padding:3vw;margin:3vw 0;font-family:'Barlow',sans-serif;font-size:3.2vw;color:var(--white);line-height:1.7;font-weight:300; }
+.status-select { width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--gold);border-radius:2vw;padding:3vw 4vw;color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:3.8vw;font-weight:700;outline:none;-webkit-appearance:none;margin-bottom:3vw; }
+.status-select option { background:var(--navy2);color:var(--white); }
+.save-status-btn { width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:2vw;padding:4vw;font-family:'Bebas Neue',sans-serif;font-size:5vw;letter-spacing:1.5vw;cursor:pointer;margin-bottom:3vw; }
+.delete-btn { width:100%;background:transparent;color:var(--red);border:1px solid var(--red);border-radius:2vw;padding:3.5vw;font-family:'Bebas Neue',sans-serif;font-size:4.5vw;letter-spacing:1vw;cursor:pointer; }
+
+.empty-state { text-align:center;padding:12vw 5vw; }
+.empty-icon { font-size:14vw;margin-bottom:4vw;opacity:0.4; }
+.empty-text { font-family:'Barlow Condensed',sans-serif;font-size:4vw;color:var(--mid);letter-spacing:0.5vw; }
+
+/* Admin login */
+.login-page { display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:8vw; }
+.login-icon { font-size:14vw;margin-bottom:4vw; }
+.login-title { font-family:'Bebas Neue',sans-serif;font-size:9vw;color:var(--gold);letter-spacing:1vw;margin-bottom:2vw;text-align:center; }
+.login-sub { font-family:'Barlow Condensed',sans-serif;font-size:3.5vw;color:var(--mid);letter-spacing:0.5vw;margin-bottom:6vw;text-align:center; }
+.login-input { width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:2vw;padding:4vw;color:var(--white);font-family:'Barlow',sans-serif;font-size:4vw;outline:none;margin-bottom:3vw;text-align:center;letter-spacing:3vw; }
+.login-btn { width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:2vw;padding:4.5vw;font-family:'Bebas Neue',sans-serif;font-size:6vw;letter-spacing:2vw;cursor:pointer; }
+.login-hint { font-family:'Barlow Condensed',sans-serif;font-size:3vw;color:var(--mid);text-align:center;margin-top:3vw; }
+
+/* Footer */
+.footer { background:#030812;padding:4vw 5vw;text-align:center;border-top:1px solid rgba(212,175,55,0.12); }
+.footer-brand { font-family:'Bebas Neue',sans-serif;font-size:4vw;letter-spacing:2vw;color:var(--gold);opacity:0.6;margin-bottom:1.5vw; }
+.footer-tag { font-family:'Barlow Condensed',sans-serif;font-size:2.8vw;letter-spacing:1vw;color:var(--mid);text-transform:uppercase; }
+
+/* Admin access button on success screen */
+.admin-access-btn { font-family:'Barlow Condensed',sans-serif;font-size:3vw;color:var(--mid);letter-spacing:0.5vw;background:transparent;border:none;cursor:pointer;margin-top:4vw;text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     SUCCESS SCREEN
+════════════════════════════════════ -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">🎙️</div>
+  <div class="success-title">YOU'RE<br>ON YOUR<br>WAY!</div>
+  <div class="success-sub">Your application has been received.<br>We'll review your details and be in touch soon.</div>
+
+  <div style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.4);border-radius:3vw;padding:5vw;width:100%;margin-bottom:4vw;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:3vw;font-weight:700;letter-spacing:1.5vw;color:#25D366;text-transform:uppercase;margin-bottom:3vw;">⚠️ Don't Forget!</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:3.8vw;color:var(--white);line-height:1.6;margin-bottom:3vw;">Send your <strong style="color:#25D366;">1-minute video</strong> on WhatsApp to complete your application:</div>
+    <a href="https://wa.me/27609582373?text=Hi%20AIRWAVE%20PODCAST!%20I%20am%20applying%20to%20be%20a%20host.%20Here%20is%20my%201-minute%20video%20%F0%9F%8E%99" target="_blank" style="display:block;background:#25D366;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:5vw;letter-spacing:1.5vw;padding:3vw 4vw;text-decoration:none;border-radius:2vw;text-align:center;margin-bottom:2vw;">💬 SEND TO AMANDA</a>
+    <a href="https://wa.me/27784811294?text=Hi%20AIRWAVE%20PODCAST!%20I%20am%20applying%20to%20be%20a%20host.%20Here%20is%20my%201-minute%20video%20%F0%9F%8E%99" target="_blank" style="display:block;background:#25D366;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:5vw;letter-spacing:1.5vw;padding:3vw 4vw;text-decoration:none;border-radius:2vw;text-align:center;">💬 SEND TO ADMIN</a>
+  </div>
+
+  <div class="success-contact">
+    <div class="sc-label">Questions? Contact us</div>
+    <span class="sc-num">📞 Amanda: 060 958 2373</span>
+    <span class="sc-num">📞 Admin: 078 481 1294</span>
+  </div>
+  <div class="success-brand">AIRWAVE PODCAST · 963 HZ</div>
+  <button class="admin-access-btn" onclick="showAdminLogin()">Admin access</button>
+</div>
+
+<!-- ════════════════════════════════════
+     ADMIN LOGIN
+════════════════════════════════════ -->
+<div class="page" id="loginPage">
+  <div class="login-page">
+    <div class="login-icon">🔐</div>
+    <div class="login-title">ADMIN<br>ACCESS</div>
+    <div class="login-sub">AIRWAVE PODCAST DASHBOARD</div>
+    <input class="login-input" type="password" id="adminPass" placeholder="••••••" onkeydown="if(event.key==='Enter')checkLogin()">
+    <button class="login-btn" onclick="checkLogin()">ENTER →</button>
+    <div class="login-hint">Default PIN: 9630</div>
+    <button class="admin-access-btn" style="color:var(--cyan)" onclick="showPage('formPage')">← Back to application</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     ADMIN DASHBOARD
+════════════════════════════════════ -->
+<div class="page admin-page" id="adminPage">
+
+  <div class="admin-header">
+    <div>
+      <div class="admin-title">DASHBOARD</div>
+      <div class="admin-subtitle">AIRWAVE PODCAST REGISTRATIONS</div>
+    </div>
+    <button class="admin-back" onclick="showPage('formPage')">← EXIT</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <span class="stat-num" id="statTotal">0</span>
+      <div class="stat-label">Total<br>Applied</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="statNew" style="color:var(--cyan)">0</span>
+      <div class="stat-label">New<br>Today</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="statShort" style="color:var(--green)">0</span>
+      <div class="stat-label">Short<br>listed</div>
+    </div>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterApps('all',this)">All</button>
+    <button class="filter-btn" onclick="filterApps('new',this)">New</button>
+    <button class="filter-btn" onclick="filterApps('reviewed',this)">Reviewed</button>
+    <button class="filter-btn" onclick="filterApps('shortlisted',this)">Shortlisted</button>
+    <button class="filter-btn" onclick="filterApps('declined',this)">Declined</button>
+  </div>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="🔍  Search by name, phone, or show..." oninput="renderApps()">
+  </div>
+
+  <!-- List -->
+  <div class="apps-list" id="appsList"></div>
+
+  <!-- Clear all -->
+  <div style="padding:0 4vw 6vw;text-align:center;">
+    <button onclick="clearAll()" style="font-family:'Barlow Condensed',sans-serif;font-size:3vw;color:var(--mid);background:transparent;border:none;cursor:pointer;letter-spacing:0.5vw;text-decoration:underline;">Clear all registrations</button>
+  </div>
+</div>
+
+<!-- APPLICANT DETAIL PANEL -->
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-header">
+    <button class="detail-close" onclick="closeDetail()">← BACK</button>
+    <div id="detailNameHeader" class="detail-name"></div>
+  </div>
+  <div class="detail-body" id="detailBody"></div>
+</div>
+
+<!-- ════════════════════════════════════
+     APPLICATION FORM
+════════════════════════════════════ -->
+<div class="page active" id="formPage">
+
+  <div class="header">
+    <div class="live-bar"><div class="live-dot"></div><div class="live-text">Now Recruiting</div></div>
+    <div class="brand-name">AIRWAVE</div>
+    <div class="brand-sub">PODCAST</div>
+    <div class="header-tagline">Host &amp; Presenter Application</div>
+    <div class="hz-pill">963 HZ</div>
+  </div>
+
+  <div class="form-wrap">
+    <div class="section-title">YOUR DETAILS</div>
+    <div class="section-sub">Fill in all fields marked <span style="color:var(--red)">*</span> — they are required.</div>
+
+    <div class="field">
+      <label>Full Name <span style="color:var(--red)">*</span></label>
+      <input type="text" id="fullname" placeholder="Your full name" autocomplete="name">
+    </div>
+    <div class="field">
+      <label>Phone Number <span style="color:var(--red)">*</span></label>
+      <input type="tel" id="phone" placeholder="e.g. 082 123 4567" autocomplete="tel">
+    </div>
+    <div class="field">
+      <label>Email Address</label>
+      <input type="email" id="email" placeholder="your@email.com" autocomplete="email">
+    </div>
+    <div class="field">
+      <label>Age <span style="color:var(--red)">*</span></label>
+      <select id="age">
+        <option value="" disabled selected>Select your age range</option>
+        <option value="18-24">18 – 24</option>
+        <option value="25-30">25 – 30</option>
+        <option value="31-40">31 – 40</option>
+        <option value="41-50">41 – 50</option>
+        <option value="50+">50+</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Gender <span style="color:var(--red)">*</span></label>
+      <select id="gender">
+        <option value="" disabled selected>Select your gender</option>
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Other">Other / Prefer not to say</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>City / Town <span style="color:var(--red)">*</span></label>
+      <input type="text" id="city" placeholder="e.g. Cape Town, Johannesburg...">
+    </div>
+    <div class="field">
+      <label>Your Show Name / Idea <span style="color:var(--red)">*</span></label>
+      <input type="text" id="showname" placeholder="What would you call your podcast?">
+    </div>
+    <div class="field">
+      <label>Tell Us About Your Show <span style="color:var(--red)">*</span></label>
+      <textarea id="showdesc" placeholder="Describe your show concept, your audience, and what makes your voice unique..."></textarea>
+    </div>
+    <div class="field">
+      <label>Podcast Category <span style="color:var(--red)">*</span></label>
+      <div class="cats-grid">
+        <label class="cat-check"><input type="checkbox" name="cat" value="Sports"><span>🏆 Sports</span></label>
+        <label class="cat-check"><input type="checkbox" name="cat" value="Education"><span>📚 Education</span></label>
+        <label class="cat-check"><input type="checkbox" name="cat" value="Faith"><span>🙏 Faith</span></label>
+        <label class="cat-check"><input type="checkbox" name="cat" value="Business"><span>💼 Business</span></label>
+        <label class="cat-check"><input type="checkbox" name="cat" value="Technology"><span>💻 Technology</span></label>
+        <label class="cat-check"><input type="checkbox" name="cat" value="Entertainment"><span>🎭 Entertainment</span></label>
+        <label class="cat-check"><input type="checkbox" name="cat" value="Music"><span>🎵 Music</span></label>
+        <label class="cat-check"><input type="checkbox" name="cat" value="Health"><span>❤️ Health</span></label>
+        <label class="cat-check"><input type="checkbox" name="cat" value="Self Dev"><span>💡 Self Dev</span></label>
+        <label class="cat-check"><input type="checkbox" name="cat" value="Other"><span>✨ Other</span></label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Previous Experience</label>
+      <select id="experience">
+        <option value="" disabled selected>Select your experience level</option>
+        <option value="No experience">No experience — complete beginner</option>
+        <option value="Some experience">Some experience (YouTube, social media etc.)</option>
+        <option value="Radio/Podcast">Radio or podcast experience</option>
+        <option value="Professional">Professional presenter / broadcaster</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Social Media Handle</label>
+      <input type="text" id="social" placeholder="@yourhandle (Instagram, TikTok, etc.)">
+    </div>
+
+    <div class="divider">
+      <div class="l"></div><div class="d"></div><div class="d" style="background:var(--cyan)"></div><div class="d"></div><div class="l"></div>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="video-section">
+      <div class="video-title">🎙 YOUR 1-MIN VIDEO</div>
+      <div class="video-hint">
+        Record a <strong>1-minute video</strong> of yourself — introduce yourself, tell us your show idea, and let us hear your voice.<br><br>
+        Then send it to us directly on <strong>WhatsApp</strong> by tapping the button below.
+      </div>
+
+      <!-- WhatsApp buttons -->
+      <div class="video-buttons">
+        <a href="https://wa.me/27609582373?text=Hi%20AIRWAVE%20PODCAST!%20I%20am%20applying%20to%20be%20a%20host.%20Here%20is%20my%201-minute%20video%20%F0%9F%8E%99" target="_blank" class="btn-record" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:2vw;">
+          💬 SEND VIDEO TO AMANDA
+        </a>
+        <a href="https://wa.me/27784811294?text=Hi%20AIRWAVE%20PODCAST!%20I%20am%20applying%20to%20be%20a%20host.%20Here%20is%20my%201-minute%20video%20%F0%9F%8E%99" target="_blank" class="btn-upload" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:2vw;">
+          💬 SEND VIDEO TO ADMIN
+        </a>
+      </div>
+
+      <!-- Confirm tick -->
+      <div style="margin-top:3vw;">
+        <label style="display:flex;align-items:center;gap:3vw;background:rgba(37,211,102,0.06);border:1px solid rgba(37,211,102,0.3);border-radius:2vw;padding:3vw 4vw;cursor:pointer;">
+          <input type="checkbox" id="videoSent" style="width:5vw;height:5vw;accent-color:#25D366;flex-shrink:0;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:3.5vw;font-weight:700;color:#25D366;letter-spacing:0.3vw;">I have sent my video on WhatsApp ✅</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- TIPS -->
+    <div class="tips-box">
+      <div class="tips-title">💡 VIDEO TIPS</div>
+      <div class="tip"><div class="tip-num">01</div><div class="tip-text"><strong>Say your name</strong> clearly and confidently</div></div>
+      <div class="tip"><div class="tip-num">02</div><div class="tip-text"><strong>Tell us your show idea</strong> — topic, audience, why you</div></div>
+      <div class="tip"><div class="tip-num">03</div><div class="tip-text"><strong>Show your personality</strong> — energy, warmth, authority</div></div>
+      <div class="tip"><div class="tip-num">04</div><div class="tip-text">Good lighting, quiet room, <strong>look at the camera</strong></div></div>
+    </div>
+
+    <button class="submit-btn" onclick="submitForm()">SUBMIT APPLICATION →</button>
+
+    <!-- Admin link -->
+    <div style="text-align:center;padding-bottom:6vw;">
+      <button onclick="showAdminLogin()" style="font-family:'Barlow Condensed',sans-serif;font-size:3vw;color:var(--mid);background:transparent;border:none;cursor:pointer;letter-spacing:0.5vw;text-decoration:underline;">Admin dashboard</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">AIRWAVE MEDIA GROUP</div>
+    <div class="footer-tag">Your Signal. Amplified. | 963 Hz</div>
+  </div>
+</div>
+
+<script>
+// ── STORAGE KEY
+const STORE_KEY = 'airwave_applicants';
+
+function getApplicants() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; }
+  catch(e) { return []; }
+}
+function saveApplicants(arr) {
+  localStorage.setItem(STORE_KEY, JSON.stringify(arr));
+}
+
+// ── PAGE ROUTING
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('successScreen').classList.remove('show');
+  window.scrollTo(0,0);
+}
+function showAdminLogin() {
+  document.getElementById('successScreen').classList.remove('show');
+  showPage('loginPage');
+}
+function checkLogin() {
+  const pass = document.getElementById('adminPass').value;
+  if(pass === '9630') {
+    showPage('adminPage');
+    renderDashboard();
+  } else {
+    document.getElementById('adminPass').style.borderColor = 'var(--red)';
+    setTimeout(() => document.getElementById('adminPass').style.borderColor = 'var(--border)', 1500);
+  }
+}
+
+// ── VIDEO RECORDING
+let mediaRecorder=null, recordedChunks=[], stream=null, timerInterval=null, seconds=0, videoReady=false;
+
+function startRecording() {
+  navigator.mediaDevices.getUserMedia({video:true, audio:true})
+    .then(function(s) {
+      stream = s;
+      const p = document.getElementById('videoPreview');
+      p.srcObject = stream; p.style.display = 'block';
+      document.getElementById('recordedPreview').style.display = 'none';
+      document.getElementById('videoSuccess').classList.remove('show');
+      recordedChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = e => { if(e.data.size > 0) recordedChunks.push(e.data); };
+      mediaRecorder.onstop = function() {
+        const blob = new Blob(recordedChunks, {type:'video/webm'});
+        const url = URL.createObjectURL(blob);
+        const rp = document.getElementById('recordedPreview');
+        rp.src = url; rp.style.display = 'block';
+        p.style.display = 'none';
+        document.getElementById('videoSuccess').classList.add('show');
+        videoReady = true;
+        if(stream) stream.getTracks().forEach(t => t.stop());
+      };
+      mediaRecorder.start();
+      document.getElementById('btnRecord').style.display = 'none';
+      document.getElementById('btnStop').style.display = 'flex';
+      document.getElementById('recTimer').classList.add('show');
+      seconds = 0;
+      timerInterval = setInterval(function() {
+        seconds++;
+        const m = Math.floor(seconds/60), s = seconds%60;
+        document.getElementById('timerText').textContent = 'REC '+m+':'+(s<10?'0'+s:s);
+        if(seconds >= 90) stopRecording();
+      }, 1000);
+    })
+    .catch(() => alert('Camera access denied. Please use the Upload button instead.'));
+}
+
+function stopRecording() {
+  clearInterval(timerInterval);
+  document.getElementById('recTimer').classList.remove('show');
+  document.getElementById('btnStop').style.display = 'none';
+  document.getElementById('btnRecord').style.display = 'flex';
+  document.getElementById('btnRecord').textContent = '🔄 RE-RECORD';
+  if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+}
+
+function handleUpload(input) {
+  if(input.files && input.files[0]) {
+    const url = URL.createObjectURL(input.files[0]);
+    const rp = document.getElementById('recordedPreview');
+    rp.src = url; rp.style.display = 'block';
+    document.getElementById('videoPreview').style.display = 'none';
+    document.getElementById('videoSuccess').classList.add('show');
+    videoReady = true;
+  }
+}
+
+// ── SUBMIT
+function submitForm() {
+  const name   = document.getElementById('fullname').value.trim();
+  const phone  = document.getElementById('phone').value.trim();
+  const age    = document.getElementById('age').value;
+  const gender = document.getElementById('gender').value;
+  const city   = document.getElementById('city').value.trim();
+  const show   = document.getElementById('showname').value.trim();
+  const desc   = document.getElementById('showdesc').value.trim();
+  const cats   = [...document.querySelectorAll('input[name="cat"]:checked')].map(c => c.value);
+
+  if(!name)             { alert('Please enter your full name.'); return; }
+  if(!phone)            { alert('Please enter your phone number.'); return; }
+  if(!age)              { alert('Please select your age range.'); return; }
+  if(!gender)           { alert('Please select your gender.'); return; }
+  if(!city)             { alert('Please enter your city or town.'); return; }
+  if(!show)             { alert('Please enter your show name or idea.'); return; }
+  if(!desc)             { alert('Please describe your show concept.'); return; }
+  if(cats.length === 0) { alert('Please select at least one podcast category.'); return; }
+
+  const videoSent = document.getElementById('videoSent').checked;
+
+  const applicant = {
+    id: Date.now(),
+    name, phone,
+    email: document.getElementById('email').value.trim(),
+    age, gender, city, show, desc, cats,
+    experience: document.getElementById('experience').value || 'Not specified',
+    social: document.getElementById('social').value.trim(),
+    hasVideo: videoSent,
+    status: 'new',
+    date: new Date().toLocaleDateString('en-ZA', {day:'2-digit', month:'short', year:'numeric'}),
+    time: new Date().toLocaleTimeString('en-ZA', {hour:'2-digit', minute:'2-digit'})
+  };
+
+  const all = getApplicants();
+  all.unshift(applicant);
+  saveApplicants(all);
+
+  document.getElementById('successScreen').classList.add('show');
+  window.scrollTo(0,0);
+}
+
+// ── DASHBOARD
+let currentFilter = 'all';
+
+function renderDashboard() {
+  const all = getApplicants();
+  const today = new Date().toLocaleDateString('en-ZA', {day:'2-digit', month:'short', year:'numeric'});
+
+  document.getElementById('statTotal').textContent = all.length;
+  document.getElementById('statNew').textContent = all.filter(a => a.date === today).length;
+  document.getElementById('statShort').textContent = all.filter(a => a.status === 'shortlisted').length;
+
+  renderApps();
+}
+
+function filterApps(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderApps();
+}
+
+function renderApps() {
+  const all = getApplicants();
+  const search = (document.getElementById('searchInput').value||'').toLowerCase();
+  const list = document.getElementById('appsList');
+
+  let filtered = all.filter(a => {
+    const matchFilter = currentFilter === 'all' || a.status === currentFilter;
+    const matchSearch = !search ||
+      a.name.toLowerCase().includes(search) ||
+      a.phone.toLowerCase().includes(search) ||
+      a.show.toLowerCase().includes(search);
+    return matchFilter && matchSearch;
+  });
+
+  if(filtered.length === 0) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No applications found</div></div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(a => {
+    const initials = a.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+    const statusClass = 'status-'+a.status;
+    const statusLabel = {new:'NEW',reviewed:'REVIEWED',shortlisted:'SHORTLISTED',declined:'DECLINED'}[a.status] || 'NEW';
+    return `
+      <div class="app-card" onclick="openDetail(${a.id})">
+        <div class="app-card-top">
+          <div class="app-avatar">${initials}</div>
+          <div class="app-info">
+            <div class="app-name">${a.name}</div>
+            <div class="app-phone">${a.phone}</div>
+            <div class="app-date">${a.date} · ${a.time}</div>
+          </div>
+          <div class="status-badge ${statusClass}">${statusLabel}</div>
+        </div>
+        <div class="app-pills">
+          ${a.cats.map(c => `<div class="app-pill">${c}</div>`).join('')}
+          ${a.hasVideo ? '<div class="app-pill" style="background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.3);color:var(--green)">🎥 VIDEO</div>' : ''}
+        </div>
+        <div class="app-show">"${a.show}"</div>
+      </div>`;
+  }).join('');
+}
+
+function openDetail(id) {
+  const all = getApplicants();
+  const a = all.find(x => x.id === id);
+  if(!a) return;
+
+  document.getElementById('detailNameHeader').textContent = a.name.toUpperCase();
+
+  const rows = [
+    ['Phone', a.phone],
+    ['Email', a.email || '—'],
+    ['Age', a.age],
+    ['Gender', a.gender],
+    ['City', a.city],
+    ['Categories', a.cats.join(', ')],
+    ['Experience', a.experience],
+    ['Social Media', a.social || '—'],
+    ['Applied', `${a.date} at ${a.time}`],
+    ['Video', a.hasVideo ? '✅ Submitted' : '❌ Not submitted'],
+  ];
+
+  document.getElementById('detailBody').innerHTML = `
+    ${rows.map(([k,v]) => `
+      <div class="detail-row">
+        <div class="detail-key">${k}</div>
+        <div class="detail-val">${v}</div>
+      </div>`).join('')}
+    <div style="margin-top:4vw;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:3vw;font-weight:700;letter-spacing:0.8vw;color:var(--cyan);text-transform:uppercase;margin-bottom:2vw;">Show Concept</div>
+      <div class="detail-desc">${a.show}<br><br>${a.desc}</div>
+    </div>
+    <div style="margin-top:5vw;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:3vw;font-weight:700;letter-spacing:0.8vw;color:var(--cyan);text-transform:uppercase;margin-bottom:2vw;">Update Status</div>
+      <select class="status-select" id="statusSel">
+        <option value="new" ${a.status==='new'?'selected':''}>New</option>
+        <option value="reviewed" ${a.status==='reviewed'?'selected':''}>Reviewed</option>
+        <option value="shortlisted" ${a.status==='shortlisted'?'selected':''}>Shortlisted ✅</option>
+        <option value="declined" ${a.status==='declined'?'selected':''}>Declined ❌</option>
+      </select>
+      <button class="save-status-btn" onclick="saveStatus(${id})">SAVE STATUS</button>
+      <button class="delete-btn" onclick="deleteApplicant(${id})">🗑 DELETE APPLICATION</button>
+    </div>
+  `;
+
+  document.getElementById('detailPanel').classList.add('show');
+  window.scrollTo(0,0);
+}
+
+function closeDetail() {
+  document.getElementById('detailPanel').classList.remove('show');
+  renderDashboard();
+}
+
+function saveStatus(id) {
+  const all = getApplicants();
+  const idx = all.findIndex(x => x.id === id);
+  if(idx > -1) {
+    all[idx].status = document.getElementById('statusSel').value;
+    saveApplicants(all);
+    alert('Status updated!');
+    closeDetail();
+  }
+}
+
+function deleteApplicant(id) {
+  if(!confirm('Delete this application? This cannot be undone.')) return;
+  const all = getApplicants().filter(x => x.id !== id);
+  saveApplicants(all);
+  closeDetail();
+}
+
+function clearAll() {
+  if(!confirm('Delete ALL applications? This cannot be undone.')) return;
+  localStorage.removeItem(STORE_KEY);
+  renderDashboard();
+}
+</script>
+
+</body>
+</html>
