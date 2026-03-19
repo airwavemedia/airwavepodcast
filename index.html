@@ -901,38 +901,17 @@ html, body { width:100%; min-height:100%; background:var(--navy); color:var(--wh
     <div class="video-section">
       <div class="video-title">🎙 YOUR 1-MIN VIDEO</div>
       <div class="video-hint">
-        <strong>Step 1:</strong> Record or upload your 1-minute video below.<br><br>
-        <strong>Step 2:</strong> Send it to us on WhatsApp.
+        Record a <strong>1-minute video</strong> of yourself — introduce yourself, tell us your show idea, and let us hear your voice.<br><br>
+        Then send it to us directly on <strong>WhatsApp</strong> by tapping the button below.
       </div>
 
-      <!-- Video preview -->
-      <video id="videoPreview" autoplay muted playsinline style="width:100%;border-radius:2vw;background:#000;display:none;margin-bottom:3vw;max-height:50vw;object-fit:cover;"></video>
-      <video id="recordedPreview" controls playsinline style="width:100%;border-radius:2vw;background:#000;display:none;margin-bottom:3vw;max-height:50vw;object-fit:cover;"></video>
-
-      <!-- Recording timer -->
-      <div class="rec-timer" id="recTimer"><div class="rec-dot"></div><span id="timerText">REC 0:00</span></div>
-
-      <!-- Record and upload buttons -->
+      <!-- WhatsApp buttons -->
       <div class="video-buttons">
-        <button class="btn-record" id="btnRecord" onclick="startRecording()">🔴 RECORD VIDEO NOW</button>
-        <button class="btn-stop" id="btnStop" onclick="stopRecording()">⏹ STOP RECORDING</button>
-        <div class="or-divider">— OR —</div>
-        <label class="btn-upload">📁 UPLOAD VIDEO FROM PHONE
-          <input type="file" id="videoUpload" accept="video/*" style="display:none" onchange="handleUpload(this)">
-        </label>
-      </div>
-
-      <!-- Video success -->
-      <div class="video-success" id="videoSuccess"><span>✅ &nbsp;Video ready! Now send it on WhatsApp below.</span></div>
-
-      <!-- WhatsApp send buttons -->
-      <div style="margin-top:4vw;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:3vw;font-weight:700;letter-spacing:1vw;color:var(--cyan);text-transform:uppercase;margin-bottom:2vw;">Step 2 — Send Video on WhatsApp:</div>
-        <a href="https://wa.me/27609582373?text=Hi%20AIRWAVE%20PODCAST!%20I%20am%20applying%20to%20be%20a%20host.%20Here%20is%20my%201-minute%20video%20%F0%9F%8E%99" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:2vw;width:100%;background:#25D366;color:#fff;border:none;border-radius:2vw;padding:4vw;font-family:'Bebas Neue',sans-serif;font-size:5vw;letter-spacing:1.5vw;text-decoration:none;margin-bottom:2vw;">
-          💬 SEND TO AMANDA
+        <a href="https://wa.me/27609582373?text=Hi%20AIRWAVE%20PODCAST!%20I%20am%20applying%20to%20be%20a%20host.%20Here%20is%20my%201-minute%20video%20%F0%9F%8E%99" target="_blank" class="btn-record" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:2vw;">
+          💬 SEND VIDEO TO AMANDA
         </a>
-        <a href="https://wa.me/27784811294?text=Hi%20AIRWAVE%20PODCAST!%20I%20am%20applying%20to%20be%20a%20host.%20Here%20is%20my%201-minute%20video%20%F0%9F%8E%99" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:2vw;width:100%;background:#25D366;color:#fff;border:none;border-radius:2vw;padding:4vw;font-family:'Bebas Neue',sans-serif;font-size:5vw;letter-spacing:1.5vw;text-decoration:none;">
-          💬 SEND TO ADMIN
+        <a href="https://wa.me/27784811294?text=Hi%20AIRWAVE%20PODCAST!%20I%20am%20applying%20to%20be%20a%20host.%20Here%20is%20my%201-minute%20video%20%F0%9F%8E%99" target="_blank" class="btn-upload" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:2vw;">
+          💬 SEND VIDEO TO ADMIN
         </a>
       </div>
 
@@ -1004,62 +983,6 @@ function checkLogin() {
 
 // ── VIDEO RECORDING
 let mediaRecorder=null, recordedChunks=[], stream=null, timerInterval=null, seconds=0, videoReady=false;
-
-function startRecording() {
-  navigator.mediaDevices.getUserMedia({video:true, audio:true})
-    .then(function(s) {
-      stream = s;
-      const p = document.getElementById('videoPreview');
-      p.srcObject = stream; p.style.display = 'block';
-      document.getElementById('recordedPreview').style.display = 'none';
-      document.getElementById('videoSuccess').classList.remove('show');
-      recordedChunks = [];
-      mediaRecorder = new MediaRecorder(stream);
-      mediaRecorder.ondataavailable = e => { if(e.data.size > 0) recordedChunks.push(e.data); };
-      mediaRecorder.onstop = function() {
-        const blob = new Blob(recordedChunks, {type:'video/webm'});
-        const url = URL.createObjectURL(blob);
-        const rp = document.getElementById('recordedPreview');
-        rp.src = url; rp.style.display = 'block';
-        p.style.display = 'none';
-        document.getElementById('videoSuccess').classList.add('show');
-        videoReady = true;
-        if(stream) stream.getTracks().forEach(t => t.stop());
-      };
-      mediaRecorder.start();
-      document.getElementById('btnRecord').style.display = 'none';
-      document.getElementById('btnStop').style.display = 'flex';
-      document.getElementById('recTimer').classList.add('show');
-      seconds = 0;
-      timerInterval = setInterval(function() {
-        seconds++;
-        const m = Math.floor(seconds/60), s = seconds%60;
-        document.getElementById('timerText').textContent = 'REC '+m+':'+(s<10?'0'+s:s);
-        if(seconds >= 90) stopRecording();
-      }, 1000);
-    })
-    .catch(() => alert('Camera access denied. Please use the Upload button instead.'));
-}
-
-function stopRecording() {
-  clearInterval(timerInterval);
-  document.getElementById('recTimer').classList.remove('show');
-  document.getElementById('btnStop').style.display = 'none';
-  document.getElementById('btnRecord').style.display = 'flex';
-  document.getElementById('btnRecord').textContent = '🔄 RE-RECORD';
-  if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-}
-
-function handleUpload(input) {
-  if(input.files && input.files[0]) {
-    const url = URL.createObjectURL(input.files[0]);
-    const rp = document.getElementById('recordedPreview');
-    rp.src = url; rp.style.display = 'block';
-    document.getElementById('videoPreview').style.display = 'none';
-    document.getElementById('videoSuccess').classList.add('show');
-    videoReady = true;
-  }
-}
 
 function startRecording() {
   navigator.mediaDevices.getUserMedia({video:true, audio:true})
